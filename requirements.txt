@@ -62,4 +62,4 @@ git+https://github.com/Jisan09/Telethon@test
 git+https://github.com/goldsmith/Wikipedia
 git+https://github.com/sandy1709/py-googletrans
 git+https://github.com/alexmercerind/youtube-search-python
-yt-dlp==2025.04.30
+yt-dlp==2023.12.30
