@@ -7,17 +7,21 @@
 # Please see: https://github.com/TgCatUB/catuserbot/blob/master/LICENSE
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-FROM catub/core:bookworm
+FROM python:3.11-slim-bookworm
 
-# Working directory 
 WORKDIR /userbot
 
-# Timezone
 ENV TZ=Asia/Kolkata
-
-## Copy files into the Docker image
-COPY . .
-
 ENV PATH="/home/userbot/bin:$PATH"
 
-CMD ["python3","-m","userbot"]
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git ffmpeg mediainfo \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python3", "-m", "userbot"]
